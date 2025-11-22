@@ -6,12 +6,15 @@ import org.imt.tournamentmaster.model.match.Match;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@SpringBootTest
 public class JsonReportingServiceTest {
 
     private final static String EXPECTED_REPORT = "{\"equipeA\":{\"nom\":\"Equipe 1\",\"joueurs\":[{\"nom\":\"Doe\",\"prenom\":\"John\",\"numero\":1},{\"nom\":\"Doe\",\"prenom\":\"Jane\",\"numero\":2},{\"nom\":\"Doe\",\"prenom\":\"Jack\",\"numero\":3}]},\"equipeB\":{\"nom\":\"Equipe 2\",\"joueurs\":[{\"nom\":\"Doe\",\"prenom\":\"Jill\",\"numero\":4},{\"nom\":\"Doe\",\"prenom\":\"Jim\",\"numero\":5},{\"nom\":\"Doe\",\"prenom\":\"Jenny\",\"numero\":6}]},\"rounds\":[{\"scoreA\":1,\"scoreB\":2,\"roundNumber\":1},{\"scoreA\":3,\"scoreB\":4,\"roundNumber\":2},{\"scoreA\":5,\"scoreB\":6,\"roundNumber\":3}],\"status\":\"TERMINE\"}\n";
@@ -20,12 +23,13 @@ public class JsonReportingServiceTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Autowired
+    private ReportingService reportingService;
+
     @Test
     public void testGenerateReport() {
         // create a match
         Match match = TestUtils.generateMatch();
-
-        ReportingService reportingService = new JsonReportingService();
 
         // report
         try {

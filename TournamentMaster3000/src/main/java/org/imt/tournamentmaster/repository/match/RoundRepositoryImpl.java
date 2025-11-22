@@ -2,9 +2,11 @@ package org.imt.tournamentmaster.repository.match;
 
 import org.imt.tournamentmaster.model.match.Round;
 import org.imt.tournamentmaster.repository.MapRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public class RoundRepositoryImpl extends MapRepository<Round> implements RoundRepository {
 
     @Override

@@ -5,18 +5,20 @@ import org.imt.tournamentmaster.model.match.Match;
 import org.imt.tournamentmaster.model.match.Round;
 import org.imt.tournamentmaster.repository.MapRepository;
 import org.imt.tournamentmaster.repository.equipe.EquipeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.Map;
 
+@Component
 public class MatchRepositoryImpl extends MapRepository<Match> implements MatchRepository {
-
-    // TODO-01 : Injecter cette classe dans le contexte de beans Spring avec la bonne annotation. Idéalement, le faire sur les autres RepositoryImpl.
 
     private final EquipeRepository equipeRepository;
 
     private final RoundRepository roundRepository;
 
+    @Autowired
     public MatchRepositoryImpl(EquipeRepository equipeRepository, RoundRepository roundRepository) {
         this.equipeRepository = equipeRepository;
         this.roundRepository = roundRepository;

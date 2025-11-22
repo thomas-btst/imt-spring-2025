@@ -3,10 +3,12 @@ package org.imt.tournamentmaster.repository.equipe;
 import org.imt.tournamentmaster.model.equipe.Equipe;
 import org.imt.tournamentmaster.model.equipe.Joueur;
 import org.imt.tournamentmaster.repository.MapRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class EquipeRepositoryImpl extends MapRepository<Equipe> implements EquipeRepository {
 
     private final JoueurRepository joueurRepository;

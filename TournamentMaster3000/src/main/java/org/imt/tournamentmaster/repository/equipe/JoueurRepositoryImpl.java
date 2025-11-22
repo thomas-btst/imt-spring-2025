@@ -2,9 +2,11 @@ package org.imt.tournamentmaster.repository.equipe;
 
 import org.imt.tournamentmaster.model.equipe.Joueur;
 import org.imt.tournamentmaster.repository.MapRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public class JoueurRepositoryImpl extends MapRepository<Joueur> implements JoueurRepository {
 
 
