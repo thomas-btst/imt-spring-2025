@@ -20,7 +20,6 @@ public class JsonReportingServiceTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    // TODO-00 : Comprendre comment fonctionne le test, comment les données sont générées et comparées
     @Test
     public void testGenerateReport() {
         // create a match

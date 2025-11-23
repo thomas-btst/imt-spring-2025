@@ -1,6 +1,10 @@
 package org.imt.tournamentmaster.repository.match;
 
 import org.imt.tournamentmaster.model.match.Match;
+import org.imt.tournamentmaster.repository.equipe.EquipeRepository;
+import org.imt.tournamentmaster.repository.equipe.EquipeRepositoryImpl;
+import org.imt.tournamentmaster.repository.equipe.JoueurRepository;
+import org.imt.tournamentmaster.repository.equipe.JoueurRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -11,10 +15,13 @@ public class MatchRepositoryTest {
 
     private final static Logger logger = org.slf4j.LoggerFactory.getLogger(MatchRepositoryTest.class);
 
-    // TODO-02a : Instancier correctement matchRepository pour faire compiler et passer les tests
-    // TODO-02b : Comprendre la problématique de devoir instancier plusieurs objets pour n'en tester qu'un seul
-    // TODO-02c : Comprendre l'intérêt de tester l'interface
-    private final MatchRepository matchRepository = new MatchRepositoryImpl();
+    private final JoueurRepository joueurRepository = new JoueurRepositoryImpl();
+
+    private final EquipeRepository equipeRepository = new EquipeRepositoryImpl(joueurRepository);
+
+    private final RoundRepository roundRepository = new RoundRepositoryImpl();
+
+    private final MatchRepository matchRepository = new MatchRepositoryImpl(equipeRepository, roundRepository);
 
     @Test
     public void testFindById() {

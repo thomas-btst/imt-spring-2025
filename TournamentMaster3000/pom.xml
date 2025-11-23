@@ -4,6 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- TODO-00a Se servir de https://start.spring.io/ pour convertir l'application en application spring boot avec spring web -->
+
+    <!-- TODO-06 : S'il vous reste du temps, complétez les injections pour tous les services et les controllers -->
+    <!-- TODO-07 : S'il vous reste ENCORE du temps, utilisez @SpringBootTest sur les tests existants et injecter directement les beans au lieu d'appeler leur constructeur. Qu'observez-vous sur les temps d'exécution des tests ? -->
+
     <groupId>org.imt</groupId>
     <artifactId>TournamentMaster3000</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -17,6 +22,10 @@
     </properties>
 
     <dependencies>
+
+        <!-- TODO-08 BONUS : https://medium.com/@f.s.a.kuzman/using-swagger-3-in-spring-boot-3-c11a483ea6dc configurer springdoc openapi en rajoutant la dépendance et aller voir le résultat sur http://localhost:8080/swagger-ui.html -->
+
+        <!-- TODO-00b : Toutes ces dépendances sont déjà importées par spring boot dans leur version optimale pour le framework, supprimez les d'ici -->
 
         <!-- jackson -->
         <dependency>

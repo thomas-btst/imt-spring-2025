@@ -1,6 +1,8 @@
 package org.imt.tournamentmaster.service.match;
 
 import org.imt.tournamentmaster.model.match.Round;
+import org.imt.tournamentmaster.repository.match.RoundRepository;
+import org.imt.tournamentmaster.repository.match.RoundRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,8 +10,9 @@ import java.util.List;
 
 public class RoundServiceTest {
 
-    // TODO-01 : Instancier correctement roundService pour faire compiler et passer les tests
-    private final RoundService roundService = new RoundService();
+    private final RoundRepository roundRepository = new RoundRepositoryImpl();
+
+    private final RoundService roundService = new RoundService(roundRepository);
 
     @Test
     public void testGetRoundById() {

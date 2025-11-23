@@ -11,6 +11,8 @@ import java.util.Map;
 
 public class MatchRepositoryImpl extends MapRepository<Match> implements MatchRepository {
 
+    // TODO-01 : Injecter cette classe dans le contexte de beans Spring avec la bonne annotation. Idéalement, le faire sur les autres RepositoryImpl.
+
     private final EquipeRepository equipeRepository;
 
     private final RoundRepository roundRepository;
