@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 
+import static org.imt.tournamentmaster.configuration.security.SecurityConfiguration.ROLE_ADMIN;
+import static org.imt.tournamentmaster.configuration.security.SecurityConfiguration.ROLE_USER;
+
 @Configuration
 public class DatabaseConfig {
     private final UserDetailsManager userDetailsManager;
@@ -24,7 +27,7 @@ public class DatabaseConfig {
             UserDetails admin = User.builder()
                     .username("admin")
                     .password(passwordEncoder.encode("admin"))
-                    .roles("USER", "ADMIN")
+                    .roles(ROLE_USER, ROLE_ADMIN)
                     .build();
             userDetailsManager.createUser(admin);
         }

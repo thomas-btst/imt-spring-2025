@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -21,17 +22,22 @@ import javax.sql.DataSource;
         name = "basicAuth",
         scheme = "basic")
 public class SecurityConfiguration {
+    public static final String ROLE_USER = "USER";
+    public static final String ROLE_ADMIN = "ADMIN";
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/api/**").hasRole("ADMIN")
-                                .requestMatchers("/actuator/health/**").permitAll()
-                                .requestMatchers("/actuator/**").hasRole("ADMIN")
-                                .anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults());
+        http
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(authorize ->
+                authorize
+                    .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole(ROLE_USER, ROLE_ADMIN)
+                    .requestMatchers("/api/**").hasRole(ROLE_ADMIN)
+                    .requestMatchers("/actuator/health/**").permitAll()
+                    .requestMatchers("/actuator/**").hasRole("ADMIN")
+                    .anyRequest().permitAll()
+            ).httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
