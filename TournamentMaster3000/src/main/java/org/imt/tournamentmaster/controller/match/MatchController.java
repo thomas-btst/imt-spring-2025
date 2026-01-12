@@ -32,4 +32,18 @@ public class MatchController {
     public List<Match> getAll() {
         return matchService.getAll();
     }
+
+    // Endpoint de recherche avec critères
+    // Exemples d'utilisation :
+    //   GET /api/match/search                         -> tous les matchs
+    //   GET /api/match/search?status=EN_COURS         -> matchs en cours
+    //   GET /api/match/search?equipeId=1              -> matchs de l'équipe 1
+    //   GET /api/match/search?status=TERMINE&equipeId=2 -> matchs terminés de l'équipe 2
+    @GetMapping("/search")
+    public List<Match> search(
+            @RequestParam(required = false) Match.Status status,
+            @RequestParam(required = false) Long equipeId
+    ) {
+        return matchService.search(status, equipeId);
+    }
 }
