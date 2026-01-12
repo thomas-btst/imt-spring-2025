@@ -102,4 +102,41 @@ public class MatchService {
 
         return matchMapper.toMatchDto(matchRepository.save(match));
     }
+
+    // Recherche par statut uniquement
+    @Transactional(readOnly = true)
+    public List<Match> getByStatus(Match.Status status) {
+        return matchRepository.findByStatus(status);
+    }
+
+    // Recherche les matchs où une équipe participe (en A ou en B)
+    @Transactional(readOnly = true)
+    public List<Match> getByEquipeId(Long equipeId) {
+        return matchRepository.findByEquipeAIdOrEquipeBId(equipeId, equipeId);
+    }
+
+    // Recherche combinée : on peut filtrer par statut et/ou par équipe
+    // Si un critère est null, on l'ignore
+    @Transactional(readOnly = true)
+    public List<Match> search(Match.Status status, Long equipeId) {
+        // Cas 1 : aucun critère -> tout retourner
+        if (status == null && equipeId == null) {
+            return getAll();
+        }
+
+        // Cas 2 : seulement le statut
+        if (equipeId == null) {
+            return matchRepository.findByStatus(status);
+        }
+
+        // Cas 3 : seulement l'équipe
+        if (status == null) {
+            return matchRepository.findByEquipeAIdOrEquipeBId(equipeId, equipeId);
+        }
+
+        // Cas 4 : les deux critères
+        return matchRepository.findByStatusAndEquipeAIdOrStatusAndEquipeBId(
+                status, equipeId, status, equipeId
+        );
+    }
 }

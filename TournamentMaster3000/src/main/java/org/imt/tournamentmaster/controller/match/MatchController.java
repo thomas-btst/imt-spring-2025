@@ -1,6 +1,7 @@
 package org.imt.tournamentmaster.controller.match;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -52,6 +53,20 @@ public class MatchController {
         return matchService.getAll();
     }
 
+    // Endpoint de recherche avec critères optionnels
+    @GetMapping("/search")
+    @Operation(summary = "Search matches by criteria", description = "Search matches by status and/or team. All parameters are optional.")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "List of matching matches"),
+    })
+    public List<Match> search(
+            @Parameter(description = "Match status (NOUVEAU, EN_COURS, TERMINE)") 
+            @RequestParam(required = false) Match.Status status,
+            @Parameter(description = "Team ID (searches in both equipeA and equipeB)") 
+            @RequestParam(required = false) Long equipeId
+    ) {
+        return matchService.search(status, equipeId);
+    }
 
     @PostMapping
     @Operation(summary = "Create a match")
@@ -85,5 +100,4 @@ public class MatchController {
     public MatchDto deleteMatch(@PathVariable Long id) {
         return matchService.deleteMatch(id);
     }
-
 }
