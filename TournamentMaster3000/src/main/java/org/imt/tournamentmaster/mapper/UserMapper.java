@@ -14,7 +14,7 @@ public class UserMapper {
             .builder()
             .username(userDto.getUsername())
             .password(hashedPassword)
-            .authorities(authorities.toArray(new String[0]))
+            .roles(authorities.toArray(String[]::new))
             .build();
     }
 }

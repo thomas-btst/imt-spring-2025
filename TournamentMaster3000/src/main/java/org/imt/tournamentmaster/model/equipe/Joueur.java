@@ -1,29 +1,37 @@
 package org.imt.tournamentmaster.model.equipe;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
 public class Joueur {
-
-    @JsonIgnore
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nom;
 
     private String prenom;
 
-    private int numero;
+    private Integer numero;
 
     public Joueur() {
     }
 
-    public Joueur(long id, String nom, String prenom, int numero) {
+    public Joueur(Long id) {
         this.id = id;
+    }
+
+    public Joueur(String nom, String prenom, Integer numero) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.numero = numero;
+    }
+
+    public Joueur(Long id, String nom, String prenom, Integer numero) {
+        this(id);
         this.nom = nom;
         this.prenom = prenom;
         this.numero = numero;
@@ -37,12 +45,16 @@ public class Joueur {
         return prenom;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setNom(String nom) {
@@ -53,7 +65,7 @@ public class Joueur {
         this.prenom = prenom;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 

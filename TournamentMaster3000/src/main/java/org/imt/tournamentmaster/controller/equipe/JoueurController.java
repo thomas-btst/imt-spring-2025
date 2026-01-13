@@ -1,17 +1,18 @@
 package org.imt.tournamentmaster.controller.equipe;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.imt.tournamentmaster.model.equipe.Joueur;
+import jakarta.validation.Valid;
+import org.imt.tournamentmaster.dto.joueur.CreateOrUpdateJoueurDto;
+import org.imt.tournamentmaster.dto.joueur.JoueurDto;
 import org.imt.tournamentmaster.service.equipe.JoueurService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @SecurityRequirement(name = "basicAuth")
@@ -26,15 +27,52 @@ public class JoueurController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Joueur> getJoueurById(@PathVariable long id) {
-        Optional<Joueur> joueur = joueurService.getById(id);
-
-        return joueur.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @Operation(summary = "Retrieve a joueur by id")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200"),
+        @ApiResponse(responseCode = "404", description = "Joueur not found")
+    })
+    public JoueurDto getJoueurById(@PathVariable Long id) {
+        return joueurService.getById(id);
     }
 
     @GetMapping
-    public List<Joueur> getAllJoueurs() {
+    @Operation(summary = "Retrieve all joueurs")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200"),
+    })
+    public List<JoueurDto> getAllJoueurs() {
         return joueurService.getAll();
+    }
+
+    @PostMapping
+    @Operation(summary = "Create a joueur")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201"),
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    public JoueurDto createJoueur(@RequestBody @Valid CreateOrUpdateJoueurDto joueurDto) {
+        return joueurService.createJoueur(joueurDto);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a joueur by id")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200"),
+        @ApiResponse(responseCode = "404", description = "Joueur not found")
+    })
+    public JoueurDto updateJoueur(@PathVariable Long id, @RequestBody @Valid CreateOrUpdateJoueurDto joueurDto) {
+        return joueurService.updateJoueur(id, joueurDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a joueur by id")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "404", description = "Joueur not found"),
+            @ApiResponse(responseCode = "409", description = "Joueur is assigned to an equipe")
+    })
+    public JoueurDto deleteJoueur(@PathVariable Long id) {
+        return joueurService.deleteJoueur(id);
     }
 }

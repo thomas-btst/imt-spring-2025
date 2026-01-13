@@ -20,7 +20,7 @@ CREATE UNIQUE INDEX ix_auth_username
 -- joueur
 CREATE TABLE joueur
 (
-    id     BIGINT       NOT NULL,
+    id     BIGINT       NOT NULL AUTO_INCREMENT,
     nom    VARCHAR(255) NULL,
     prenom VARCHAR(255) NULL,
     numero INT          NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE joueur
 -- equipe
 CREATE TABLE equipe
 (
-    id  BIGINT       NOT NULL,
+    id  BIGINT       NOT NULL AUTO_INCREMENT,
     nom VARCHAR(255) NULL,
     CONSTRAINT pk_equipe PRIMARY KEY (id)
 );

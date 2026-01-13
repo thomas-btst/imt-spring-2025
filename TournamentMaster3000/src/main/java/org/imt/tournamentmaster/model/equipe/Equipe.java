@@ -9,13 +9,13 @@ import java.util.Objects;
 @Entity
 public class Equipe {
 
-    @JsonIgnore
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nom;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinTable(
             name = "equipe_joueur",
             joinColumns = @JoinColumn(name = "equipe_id"),
@@ -26,13 +26,17 @@ public class Equipe {
     public Equipe() {
     }
 
-    public Equipe(long id, String nom, List<Joueur> joueurs) {
-        this.id = id;
+    public Equipe(String nom, List<Joueur> joueurs) {
         this.nom = nom;
         this.joueurs = joueurs;
     }
 
-    public long getId() {
+    public Equipe(Long id, String nom, List<Joueur> joueurs) {
+        this(nom, joueurs);
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -44,7 +48,7 @@ public class Equipe {
         return joueurs;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
