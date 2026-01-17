@@ -86,9 +86,6 @@ public class EquipeService {
 
         Equipe equipe = equipeMapper.toEquipe(id, equipeDto);
 
-        System.out.println(equipe.getId());
-        System.out.println(equipe.getNom());
-
         return equipeMapper.toEquipeDto(saveEquipe(equipe));
     }
 

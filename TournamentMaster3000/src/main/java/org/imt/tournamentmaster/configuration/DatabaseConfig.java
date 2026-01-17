@@ -1,4 +1,4 @@
-package org.imt.tournamentmaster.configuration.security;
+package org.imt.tournamentmaster.configuration;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
