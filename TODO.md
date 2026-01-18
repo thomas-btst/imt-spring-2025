@@ -3,10 +3,10 @@
 > Pouvoir créer un match (requête POST) 
 > Pouvoir mettre à jour le statut d’un match (requête PUT) 
 > Supprimer un match (requête DELETE)
-- [ ] CS = Rechercher un match (requête GET) selon différents critères
+- [X] CS = Rechercher un match (requête GET) selon différents critères
 - [x] TB = Stocker les utilisateurs en base de données (JdbcUserDetailsManager) => Spring security
 - [x] TB = Permettre d’enregistrer des utilisateurs (par API ou par formulaire) => Spring security
-- [ ] CS = Rajouter un HealthIndicator -> KO si aucun match n’a été joué depuis 1 mois => Actuator
+- [X] CS = Rajouter un HealthIndicator -> KO si aucun match n’a été joué depuis 1 mois => Actuator
 - [ ] TB = Ajouter des contraintes sur le format des données (ex: numéro de joueur, nombre de joueur par équipe, nombre de rounds par match, …) => Spring validation (JSR 303)
 - [ ] SG = Logguer les entrants et sortants de l’API sans surcharger les contrôleurs => AOP
 - [ ] Ajouter documentation + DTO + Mappers
