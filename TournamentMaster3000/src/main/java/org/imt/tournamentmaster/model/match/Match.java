@@ -1,20 +1,29 @@
 package org.imt.tournamentmaster.model.match;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import org.imt.tournamentmaster.model.equipe.Equipe;
-
 import java.util.List;
 import java.util.Objects;
+
+import org.imt.tournamentmaster.model.equipe.Equipe;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 // Quand cette classe est transformée en entité, il faut spécifier le nom de la table en `match` en incluant les backquotes ` car match est un mot-clé réservé en SQL
 @Entity
 @Table(name = "`match`")
 public class Match {
 
-    @JsonIgnore
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private Equipe equipeA;
@@ -35,12 +44,21 @@ public class Match {
     public Match() {
     }
 
-    public Match(long id, Equipe equipeA, Equipe equipeB, List<Round> rounds, Status status) {
-        this.id = id;
+    public Match(Equipe equipeA, Equipe equipeB, List<Round> rounds, Status status) {
         this.equipeA = equipeA;
         this.equipeB = equipeB;
         this.rounds = rounds;
         this.status = status;
+    }
+
+    public Match(Equipe equipeA, Equipe equipeB) {
+        this.equipeA = equipeA;
+        this.equipeB = equipeB;
+    }
+
+    public Match(Long id, Equipe equipeA, Equipe equipeB, List<Round> rounds, Status status) {
+        this(equipeA, equipeB, rounds, status);
+        this.id = id;
     }
 
     public long getId() {

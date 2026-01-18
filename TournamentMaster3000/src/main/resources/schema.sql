@@ -53,7 +53,7 @@ ALTER TABLE equipe_joueur
 -- round
 CREATE TABLE round
 (
-    id           BIGINT NOT NULL,
+    id           BIGINT NOT NULL AUTO_INCREMENT,
     scorea       INT    NOT NULL,
     scoreb       INT    NOT NULL,
     round_number INT    NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE round
 -- match
 CREATE TABLE `match`
 (
-    id         BIGINT   NOT NULL,
+    id         BIGINT   NOT NULL AUTO_INCREMENT,
     equipea_id BIGINT   NULL,
     equipeb_id BIGINT   NULL,
     status     SMALLINT NULL,

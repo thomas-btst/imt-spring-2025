@@ -1,5 +1,6 @@
 package org.imt.tournamentmaster.service.match;
 
+import org.imt.tournamentmaster.dto.round.RoundDto;
 import org.imt.tournamentmaster.model.match.Round;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ public class RoundServiceTest {
 
     @Test
     public void testGetAll() {
-        List<Round> rounds = roundService.getAll();
+        List<RoundDto> rounds = roundService.getAll();
 
         // assert
         Assertions.assertNotNull(rounds);

@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import org.imt.tournamentmaster.dto.match.MatchDto;
+
 @Component
 public class MatchHealthIndicator implements HealthIndicator {
 
-    private MatchService matchService;
+    private final MatchService matchService;
 
     public MatchHealthIndicator(MatchService matchService) {
         this.matchService = matchService;
@@ -20,7 +22,7 @@ public class MatchHealthIndicator implements HealthIndicator {
 
     @Override
     public @Nullable Health health() {
-        List<Match> matches = matchService.getAll();
+        List<MatchDto> matches = matchService.getAll();
 
         if (matches == null || matches.isEmpty()) {
             return Health.down().withDetail("error", "No matches found").build();
