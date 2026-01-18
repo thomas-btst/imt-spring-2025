@@ -1,5 +1,7 @@
 package org.imt.tournamentmaster.model.match;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +43,10 @@ public class Match {
 
     private Status status;
 
+    // Date à laquelle le match a été joué (utile pour le HealthIndicator)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateJoue;
+
     public Match() {
     }
 
@@ -49,6 +55,15 @@ public class Match {
         this.equipeB = equipeB;
         this.rounds = rounds;
         this.status = status;
+    }
+
+    public Match(long id, Equipe equipeA, Equipe equipeB, List<Round> rounds, Status status, LocalDateTime dateJoue) {
+        this.id = id;
+        this.equipeA = equipeA;
+        this.equipeB = equipeB;
+        this.rounds = rounds;
+        this.status = status;
+        this.dateJoue = dateJoue;
     }
 
     public Match(Equipe equipeA, Equipe equipeB) {
@@ -99,6 +114,14 @@ public class Match {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public LocalDateTime getDateJoue() {
+        return dateJoue;
+    }
+
+    public void setDateJoue(LocalDateTime dateJoue) {
+        this.dateJoue = dateJoue;
     }
 
     public Equipe determineWinner() {

@@ -121,7 +121,7 @@ public class MatchService {
     public List<Match> search(Match.Status status, Long equipeId) {
         // Cas 1 : aucun critère -> tout retourner
         if (status == null && equipeId == null) {
-            return getAll();
+            return StreamSupport.stream(matchRepository.findAll().spliterator(), false).toList();
         }
 
         // Cas 2 : seulement le statut

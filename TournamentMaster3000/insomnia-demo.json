@@ -1,0 +1,158 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-01-18T19:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_demo",
+      "parentId": null,
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "TournamentMaster - Demo Features CS",
+      "description": "Démonstration des 2 features : Recherche de matchs + HealthIndicator",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "fld_feature1",
+      "parentId": "wrk_demo",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "🔍 Feature 1 - Recherche de matchs",
+      "description": "Endpoint /api/match/search avec critères optionnels",
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_feature2",
+      "parentId": "wrk_demo",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "💓 Feature 2 - HealthIndicator",
+      "description": "Endpoint /actuator/health pour monitoring",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_search_all",
+      "parentId": "fld_feature1",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "1. Tous les matchs",
+      "description": "Sans paramètre = retourne tout",
+      "url": "http://localhost:8080/api/match/search",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "user",
+        "password": "user"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_search_status",
+      "parentId": "fld_feature1",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "2. Par statut (TERMINE)",
+      "description": "Filtre par statut uniquement",
+      "url": "http://localhost:8080/api/match/search",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "param_status",
+          "name": "status",
+          "value": "TERMINE",
+          "description": "Valeurs possibles: NOUVEAU, EN_COURS, TERMINE",
+          "disabled": false
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "user",
+        "password": "user"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_search_equipe",
+      "parentId": "fld_feature1",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "3. Par équipe (id=1)",
+      "description": "Filtre par équipe (A ou B)",
+      "url": "http://localhost:8080/api/match/search",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "param_equipe",
+          "name": "equipeId",
+          "value": "1",
+          "description": "ID de l'équipe",
+          "disabled": false
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "user",
+        "password": "user"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_search_combined",
+      "parentId": "fld_feature1",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "4. Combiné (TERMINE + equipe 1)",
+      "description": "Les deux filtres combinés",
+      "url": "http://localhost:8080/api/match/search",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "param_status2",
+          "name": "status",
+          "value": "TERMINE",
+          "description": "",
+          "disabled": false
+        },
+        {
+          "id": "param_equipe2",
+          "name": "equipeId",
+          "value": "1",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "user",
+        "password": "user"
+      },
+      "_type": "request"
+    },
+    {
+      "_id": "req_health",
+      "parentId": "fld_feature2",
+      "modified": 1705600000000,
+      "created": 1705600000000,
+      "name": "1. Health Check",
+      "description": "Retourne UP si matchs récents, DOWN sinon",
+      "url": "http://localhost:8080/actuator/health",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "_type": "request"
+    }
+  ]
+}

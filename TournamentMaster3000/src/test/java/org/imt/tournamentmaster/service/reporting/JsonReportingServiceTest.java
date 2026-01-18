@@ -1,6 +1,8 @@
 package org.imt.tournamentmaster.service.reporting;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.imt.tournamentmaster.TestUtils;
 import org.imt.tournamentmaster.model.match.Match;
 import org.junit.jupiter.api.Assertions;
@@ -17,11 +19,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 @SpringBootTest
 public class JsonReportingServiceTest {
 
+    // Note: dateJoue est dynamique donc pas inclus dans l'expected - on compare après normalisation
     private final static String EXPECTED_REPORT = "{\"equipeA\":{\"nom\":\"Equipe 1\",\"joueurs\":[{\"nom\":\"Doe\",\"prenom\":\"John\",\"numero\":1},{\"nom\":\"Doe\",\"prenom\":\"Jane\",\"numero\":2},{\"nom\":\"Doe\",\"prenom\":\"Jack\",\"numero\":3}]},\"equipeB\":{\"nom\":\"Equipe 2\",\"joueurs\":[{\"nom\":\"Doe\",\"prenom\":\"Jill\",\"numero\":4},{\"nom\":\"Doe\",\"prenom\":\"Jim\",\"numero\":5},{\"nom\":\"Doe\",\"prenom\":\"Jenny\",\"numero\":6}]},\"rounds\":[{\"scoreA\":1,\"scoreB\":2,\"roundNumber\":1},{\"scoreA\":3,\"scoreB\":4,\"roundNumber\":2},{\"scoreA\":5,\"scoreB\":6,\"roundNumber\":3}],\"status\":\"TERMINE\"}\n";
 
     private final static Logger logger = org.slf4j.LoggerFactory.getLogger(JsonReportingServiceTest.class);
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    // ObjectMapper configuré pour les types Java 8 date/time
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
     @Autowired
     private ReportingService reportingService;
@@ -38,6 +44,9 @@ public class JsonReportingServiceTest {
 
             Match expected = objectMapper.readValue(EXPECTED_REPORT.getBytes(StandardCharsets.UTF_8), Match.class);
             Match actual = objectMapper.readValue(report.getBytes(StandardCharsets.UTF_8), Match.class);
+
+            // On normalise dateJoue pour la comparaison (le expected n'en a pas, l'actual en a un)
+            actual.setDateJoue(null);
 
             Assertions.assertEquals(expected, actual);
         } catch (IOException e) {

@@ -5,6 +5,7 @@ import org.imt.tournamentmaster.model.equipe.Joueur;
 import org.imt.tournamentmaster.model.match.Match;
 import org.imt.tournamentmaster.model.match.Round;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public abstract class TestUtils {
         rounds.add(round2);
         rounds.add(round3);
 
-        // create a match
-        return new Match(1L, equipe1, equipe2, rounds, Match.Status.TERMINE);
+        // create a match (avec une date récente pour les tests)
+        return new Match(1L, equipe1, equipe2, rounds, Match.Status.TERMINE, LocalDateTime.now());
     }
 }
