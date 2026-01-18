@@ -4,6 +4,7 @@ import org.imt.tournamentmaster.model.match.Match;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -22,4 +23,7 @@ public interface MatchRepository extends CrudRepository<Match, Long> {
             Match.Status status1, Long equipeAId,
             Match.Status status2, Long equipeBId
     );
+
+    // Compte les matchs terminés joués après une certaine date (pour le HealthIndicator)
+    long countByStatusAndDateJoueAfter(Match.Status status, LocalDateTime date);
 }

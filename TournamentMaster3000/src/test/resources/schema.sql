@@ -44,10 +44,11 @@ CREATE TABLE round
 -- match
 CREATE TABLE `match`
 (
-    id         BIGINT   NOT NULL,
-    equipea_id BIGINT   NULL,
-    equipeb_id BIGINT   NULL,
-    status     SMALLINT NULL,
+    id         BIGINT    NOT NULL,
+    equipea_id BIGINT    NULL,
+    equipeb_id BIGINT    NULL,
+    status     SMALLINT  NULL,
+    date_joue  TIMESTAMP NULL,
     CONSTRAINT pk_match PRIMARY KEY (id)
 );
 

@@ -22,8 +22,10 @@ INSERT INTO round (id, scorea, scoreb, round_number) VALUES (4, 2, 1, 4);
 INSERT INTO round (id, scorea, scoreb, round_number) VALUES (5, 1, 2, 5);
 INSERT INTO round (id, scorea, scoreb, round_number) VALUES (6, 2, 1, 6);
 
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (1, 1, 2, 2);
-INSERT INTO `match` (id, equipea_id, equipeb_id, status) VALUES (2, 1, 2, 2);
+-- Match 1 : joué récemment (aujourd'hui)
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_joue) VALUES (1, 1, 2, 2, CURRENT_TIMESTAMP);
+-- Match 2 : joué il y a 2 mois (pour tester le HealthIndicator)
+INSERT INTO `match` (id, equipea_id, equipeb_id, status, date_joue) VALUES (2, 1, 2, 2, DATEADD('MONTH', -2, CURRENT_TIMESTAMP));
 
 INSERT INTO match_round (match_id, round_id) VALUES (1, 1);
 INSERT INTO match_round (match_id, round_id) VALUES (1, 2);
