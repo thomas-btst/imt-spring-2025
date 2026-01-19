@@ -51,7 +51,7 @@ public class MatchService {
     public List<MatchDto> getAll() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
             .map(matchMapper::toMatchDto)
-            .toList();
+                .toList();
     }
 
     @Transactional
@@ -118,25 +118,29 @@ public class MatchService {
     // Recherche combinée : on peut filtrer par statut et/ou par équipe
     // Si un critère est null, on l'ignore
     @Transactional(readOnly = true)
-    public List<Match> search(Match.Status status, Long equipeId) {
+    public List<MatchDto> search(Match.Status status, Long equipeId) {
+        List<Match> matches;
+        
         // Cas 1 : aucun critère -> tout retourner
         if (status == null && equipeId == null) {
-            return StreamSupport.stream(matchRepository.findAll().spliterator(), false).toList();
+            matches = StreamSupport.stream(matchRepository.findAll().spliterator(), false).toList();
         }
-
         // Cas 2 : seulement le statut
-        if (equipeId == null) {
-            return matchRepository.findByStatus(status);
+        else if (equipeId == null) {
+            matches = matchRepository.findByStatus(status);
         }
-
         // Cas 3 : seulement l'équipe
-        if (status == null) {
-            return matchRepository.findByEquipeAIdOrEquipeBId(equipeId, equipeId);
+        else if (status == null) {
+            matches = matchRepository.findByEquipeAIdOrEquipeBId(equipeId, equipeId);
         }
-
         // Cas 4 : les deux critères
-        return matchRepository.findByStatusAndEquipeAIdOrStatusAndEquipeBId(
-                status, equipeId, status, equipeId
-        );
+        else {
+            matches = matchRepository.findByStatusAndEquipeAIdOrStatusAndEquipeBId(
+                    status, equipeId, status, equipeId
+            );
+        }
+        
+        // Convertir en DTOs
+        return matches.stream().map(matchMapper::toMatchDto).toList();
     }
 }

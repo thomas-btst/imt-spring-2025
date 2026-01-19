@@ -53,16 +53,16 @@ public class MatchController {
         return matchService.getAll();
     }
 
-    // Endpoint de recherche avec critères optionnels
+     // 1.CS Endpoint de recherche avec critères optionnels
     @GetMapping("/search")
     @Operation(summary = "Search matches by criteria", description = "Search matches by status and/or team. All parameters are optional.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "List of matching matches"),
     })
-    public List<Match> search(
+    public List<MatchDto> search(
             @Parameter(description = "Match status (NOUVEAU, EN_COURS, TERMINE)") 
             @RequestParam(required = false) Match.Status status,
-            @Parameter(description = "Team ID (searches in both equipeA and equipeB)") 
+            @Parameter(description = "Team ID (recherche dans both equipeA and equipeB)") 
             @RequestParam(required = false) Long equipeId
     ) {
         return matchService.search(status, equipeId);

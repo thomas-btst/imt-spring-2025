@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-// Query Method Spring Data JPA
+// Query Method Spring Data
 @Repository
 public interface MatchRepository extends CrudRepository<Match, Long> {
 
     // Méthode existante de l'équipe
     boolean existsByEquipeAOrEquipeB(Equipe equipeA, Equipe equipeB);
 
-    // Cherche les matchs par statut (NOUVEAU, EN_COURS, TERMINE)
+    // 2.CS SCherche les matchs par statut (NOUVEAU, EN_COURS, TERMINE)
     List<Match> findByStatus(Match.Status status);
 
     // Cherche les matchs où une équipe joue (peu importe si elle est A ou B)
@@ -28,6 +28,6 @@ public interface MatchRepository extends CrudRepository<Match, Long> {
             Match.Status status2, Long equipeBId
     );
 
-    // Compte les matchs terminés joués après une certaine date (pour le HealthIndicator)
+    // 4.CS Compte les matchs terminés joués après une certaine date (pour le HealthIndicator)
     long countByStatusAndDateJoueAfter(Match.Status status, LocalDateTime date);
 }

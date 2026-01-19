@@ -25,7 +25,7 @@ public class MatchHealthIndicator implements HealthIndicator {
 
     @Override
     public Health health() {
-        // On regarde les matchs TERMINES joués dans le dernier mois
+        // 5.CS On regarde les matchs TERMINES joués dans le dernier mois
         LocalDateTime unMoisAvant = LocalDateTime.now().minusMonths(1);
         long matchsRecents = matchRepository.countByStatusAndDateJoueAfter(Match.Status.TERMINE, unMoisAvant);
 

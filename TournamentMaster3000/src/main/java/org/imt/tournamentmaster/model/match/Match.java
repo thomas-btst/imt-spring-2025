@@ -43,7 +43,7 @@ public class Match {
 
     private Status status;
 
-    // Date à laquelle le match a été joué (utile pour le HealthIndicator)
+    // 3.CS Date à laquelle le match a été joué (utile pour le HealthIndicator)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateJoue;
 
